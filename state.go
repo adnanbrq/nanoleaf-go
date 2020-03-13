@@ -28,8 +28,8 @@ type Hue MinMaxValue
 // Saturation nanoleaf Saturation
 type Saturation MinMaxValue
 
-// ColorTemprature nanoleaf ColorTemprature
-type ColorTemprature MinMaxValue
+// ColorTemperature nanoleaf ColorTemperature
+type ColorTemperature MinMaxValue
 
 // newNanoState returns a new instance of State
 func newNanoState(nano *Nanoleaf) *NanoState {
@@ -234,9 +234,9 @@ func (s *NanoState) SetSaturation(value int, isIncremental bool) error {
 	return nil
 }
 
-// GetColorTemp returns the current color temprature
-func (s *NanoState) GetColorTemp() (ColorTemprature, error) {
-	var colorTemp ColorTemprature
+// GetColorTemp returns the current color temperature
+func (s *NanoState) GetColorTemp() (ColorTemperature, error) {
+	var colorTemp ColorTemperature
 	url := fmt.Sprintf("%s/ct", s.endpoint)
 	resp, err := s.nano.client.R().Get(url)
 
@@ -259,7 +259,7 @@ func (s *NanoState) GetColorTemp() (ColorTemprature, error) {
 	return colorTemp, nil
 }
 
-// SetColorTemp sets the color temprature or increments it
+// SetColorTemp sets the color temperature or increments it
 func (s *NanoState) SetColorTemp(value int, isIncremental bool) error {
 	var body jsonPayload
 
@@ -286,7 +286,7 @@ func (s *NanoState) SetColorTemp(value int, isIncremental bool) error {
 	return nil
 }
 
-// GetColorMode returns the current color temprature
+// GetColorMode returns the current color temperature
 func (s *NanoState) GetColorMode() (string, error) {
 	colorMode := ""
 	url := fmt.Sprintf("%s/colorMode", s.endpoint)

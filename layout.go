@@ -68,7 +68,7 @@ func (l *NanoLayout) GetGlobalOrientation() (*GlobalOrientation, error) {
 func (l *NanoLayout) SetGlobalOrientation(value int) error {
 	url := fmt.Sprintf("%s/globalOrientation", l.endpoint)
 	body := jsonPayload{"globalOrientation": jsonPayload{"value": value}}
-	resp, err := l.nano.client.R().SetHeader("Content-Type", "application/josn").SetBody(body).Put(url)
+	resp, err := l.nano.client.R().SetHeader("Content-Type", "application/json").SetBody(body).Put(url)
 
 	if err != nil {
 		return err

@@ -11,8 +11,8 @@ type NanoAuth struct {
 	nano *Nanoleaf
 }
 
-// addUserResoonse mimics the response when adding a new user
-type addUserResoonse struct {
+// addUserResponse mimics the response when adding a new user
+type addUserResponse struct {
 	Token string `json:"auth_token"`
 }
 
@@ -38,7 +38,7 @@ func (a *NanoAuth) Authenticate() error {
 		return ErrUnexpectedResponse
 	}
 
-	var res addUserResoonse
+	var res addUserResponse
 	if err := json.Unmarshal(resp.Body(), &res); err != nil {
 		return ErrParsingJSON
 	}
