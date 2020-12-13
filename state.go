@@ -19,6 +19,11 @@ type MinMaxValue struct {
 	Min   int `json:"min"`
 }
 
+// OnOff nanoleaf On/Off
+type OnOff struct {
+	Value bool `json:"value"`
+}
+
 // Brightness nanoleaf Brightness
 type Brightness MinMaxValue
 
@@ -41,6 +46,7 @@ func newNanoState(nano *Nanoleaf) *NanoState {
 
 // IsOn checks if the nanoleafs are currently on
 func (s *NanoState) IsOn() (bool, error) {
+	var onOff OnOff
 	url := fmt.Sprintf("%s/on", s.endpoint)
 	resp, err := s.nano.client.R().Get(url)
 
@@ -56,7 +62,11 @@ func (s *NanoState) IsOn() (bool, error) {
 		return false, ErrUnexpectedResponse
 	}
 
-	return true, nil
+	if err := json.Unmarshal(resp.Body(), &onOff); err != nil {
+		return onOff.Value, ErrParsingJSON
+	}
+
+	return onOff.Value, nil
 }
 
 // SetOn "on" means nanoleafs do light up and "off" for the opposite
